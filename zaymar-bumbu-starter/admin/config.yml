@@ -1,0 +1,35 @@
+backend:
+  name: github
+  repo: zaymarspices-cell/zaymar.bumbu
+  branch: main
+  base_url: https://zaymar-bumbu-oauth.TUO-ACCOUNT.workers.dev
+  auth_endpoint: auth
+
+media_folder: "uploads"
+public_folder: "/uploads"
+
+locale: "id"
+
+site_url: https://zaymar-bumbu.pages.dev
+display_url: https://zaymar-bumbu.pages.dev
+
+collections:
+  - name: "katalog"
+    label: "Katalog Produk"
+    files:
+      - name: "produk"
+        label: "Daftar Produk"
+        file: "content/products.json"
+        format: "json"
+        fields:
+          - label: "Daftar Produk"
+            name: "products"
+            widget: "list"
+            summary: "{{fields.name}} — {{fields.category}}"
+            fields:
+              - { label: "Nama Produk", name: "name", widget: "string" }
+              - { label: "Kategori", name: "category", widget: "select", options: ["Masakan Aceh", "Bumbu Harian", "Menu Spesial"] }
+              - { label: "Deskripsi", name: "description", widget: "text" }
+              - { label: "Harga (angka saja)", name: "price", widget: "number", value_type: "int", min: 0, default: 0 }
+              - { label: "Foto Produk", name: "image", widget: "image", required: false }
+              - { label: "Tandai sebagai Produk Baru", name: "isNew", widget: "boolean", default: false }

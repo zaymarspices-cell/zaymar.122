@@ -1,0 +1,12 @@
+const CONFIG={whatsapp:"6285218267489",instagram:"@zaymarbumbu"};
+const money=v=>v?new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',maximumFractionDigits:0}).format(v):'Tanya harga';
+let products=[],activeCategory='Semua';
+const grid=document.getElementById('product-grid');
+function esc(s=''){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function card(p){const img=p.image?`<img src="${esc(p.image)}" alt="${esc(p.name)}" loading="lazy">`:`<div class="image-placeholder">ZAYMAR<br><br>${esc(p.name)}</div>`;const wa=`https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent('Halo ZAYMAR, saya ingin bertanya tentang '+p.name)}`;return `<article class="product-card"><div class="product-image">${p.isNew?'<span class="new-tag">PRODUK BARU</span>':''}${img}</div><div class="product-info"><span class="product-category">${esc(p.category||'Pilihan ZAYMAR')}</span><h3>${esc(p.name)}</h3><p>${esc(p.description||'Racikan bumbu pilihan dari ZAYMAR BUMBU.')}</p><div class="product-bottom"><span class="price">${money(Number(p.price))}</span><a class="order-link" href="${wa}" target="_blank" rel="noopener">Tanya produk ↗</a></div></div></article>`}
+function render(){const shown=products.filter(p=>activeCategory==='Semua'||p.category===activeCategory);grid.innerHTML=shown.length?shown.map(card).join(''):'<div class="empty">Belum ada produk pada kategori ini.</div>';}
+fetch('/content/products.json').then(r=>{if(!r.ok)throw Error();return r.json()}).then(d=>{products=d.products||[];render()}).catch(()=>grid.innerHTML='<div class="empty">Katalog sedang diperbarui. Silakan hubungi ZAYMAR melalui WhatsApp.</div>');
+document.getElementById('filters').addEventListener('click',e=>{const b=e.target.closest('button[data-category]');if(!b)return;activeCategory=b.dataset.category;document.querySelectorAll('.filter').forEach(x=>x.classList.toggle('active',x===b));render();});
+document.getElementById('wa-link').href=`https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent('Halo ZAYMAR BUMBU, saya ingin bertanya tentang produk.')}`;
+document.getElementById('instagram').textContent=CONFIG.instagram;document.getElementById('year').textContent=new Date().getFullYear();
+const toggle=document.querySelector('.menu-toggle'),nav=document.querySelector('.nav');toggle.addEventListener('click',()=>{const open=nav.classList.toggle('open');toggle.setAttribute('aria-expanded',String(open));});nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>nav.classList.remove('open')));

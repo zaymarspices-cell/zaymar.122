@@ -1,0 +1,28 @@
+{
+  "products": [
+    {
+      "name": "Bumbu Masak Puteh Aceh",
+      "category": "Masakan Aceh",
+      "description": "Racikan bumbu kering untuk sajian masak puteh khas Aceh.",
+      "price": 0,
+      "image": "",
+      "isNew": true
+    },
+    {
+      "name": "Bumbu Ayam Tangkap",
+      "category": "Masakan Aceh",
+      "description": "Bumbu praktis untuk menghadirkan sajian ayam tangkap khas Aceh.",
+      "price": 0,
+      "image": "",
+      "isNew": false
+    },
+    {
+      "name": "Bumbu Nasi Kuning",
+      "category": "Bumbu Harian",
+      "description": "Racikan rempah pilihan untuk nasi kuning yang harum dan lezat.",
+      "price": 0,
+      "image": "",
+      "isNew": false
+    }
+  ]
+}
